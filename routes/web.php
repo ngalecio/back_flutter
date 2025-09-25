@@ -3,10 +3,23 @@
 use Illuminate\Support\Facades\Route;
 
 
-
 Route::get('/', function () {
+    return view('inicio');
+});
+
+Route::get('/servicios', function () {
+    return view('servicios');
+});
+
+Route::get('/nosotros', function () {
+    return view('nosotros');
+});
+
+Route::get('/welcome', function () {
     return view('welcome');
 });
+
+
 
 Route::get('/hola', function () {
    // return 'Hola mundo desde laravel';
