@@ -1,24 +1,30 @@
 version: "3.8"
 
 services:
+  # Servicio de la aplicación PHP (PHP-FPM)
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: laravel_app
+    # Monta la raíz del repositorio (.) al directorio de trabajo (/var/www)
     volumes:
-      - .:/var/www # CAMBIADO: La raíz del repositorio va a /var/www
+      - .:/var/www
     networks:
       - laravel
 
+  # Servicio del Servidor Web (Nginx)
   web:
     image: nginx:latest
     container_name: laravel_nginx
+    # Expone el puerto 80. EasyPanel lo usará como proxy
     ports:
-      - "8080:80"
+      - "80:80"
+    # Monta el código y la configuración de Nginx
     volumes:
       - .:/var/www
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    # Asegura que PHP (app) esté listo antes de que Nginx intente comunicarse
     depends_on:
       - app
     networks:
@@ -26,3 +32,4 @@ services:
 
 networks:
   laravel:
+    driver: bridge
