@@ -23,7 +23,8 @@ WORKDIR /var/www
 # Instalar dependencias de Laravel (ejecutar en la capa final para caching)
 # Opcionalmente, puedes mover esto a un script de inicio si prefieres
 # RUN composer install --no-dev --optimize-autoloader --no-interaction
-
+# COPIA todo el código de tu repositorio (donde está storage y bootstrap/cache)
+COPY . /var/www
 # Asegurar que el usuario 'www-data' tenga permisos sobre las carpetas de almacenamiento
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
